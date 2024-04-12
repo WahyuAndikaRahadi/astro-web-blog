@@ -1,0 +1,114 @@
+---
+import Layout from "../layouts/Layout.astro";
+if(Astro.request.method === "POST") {
+const formData = await Astro.request.formData();
+const title = formData.get("title");
+const description = formData.get("description");
+const type = formData.get("type");
+const data = {title, description, type}
+
+const response = await fetch("http://localhost:3001/", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+        "Content-Type": "application/json"
+    }
+})
+
+}
+---
+
+
+<Layout title="Buatlah Blog">
+    <h1 class="title-text">Buatlah Blog</h1>
+    <div class="container">
+    <form action="" method="POST">
+        <input type="text" placeholder="Masukan Judul..." name="title" required>
+        <input type="text"placeholder="Masukan Konten..." name="description" required>
+        <input type="text"placeholder="Masukan Tipe Konten..." name="type" required>
+        <button type="submit">Kirim</button>
+    </form>
+    </div>
+    <div class="btn">
+        <a href="./" class="back">Kembali</a>
+    </div>
+</Layout>
+
+<style>
+    .title-text {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+        position: relative;
+		font-size: 4rem;
+		font-weight: 700;
+		text-align: center;
+		margin-bottom: 1.5em;
+	}
+
+    form {
+        display: flex;
+        width: 600px;
+        gap:10px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    input {
+        padding: 6px 8px;
+        width:100%;
+    }
+    .btn {
+        display: flex;
+        position: relative;
+        top:100px;
+    }
+    button {
+        padding: 6px 9px;
+        border:none;
+        background-color: rgb(78, 247, 78);
+		border: 1px solid rgba(var(--accent-light), 25%);
+        color:white;
+        width:100%;
+        cursor:pointer;
+        border-radius: 5px;
+		box-shadow: 2px 2px 2px 2px rgb(160, 238, 190);
+        font-size: 1rem;
+		font-weight: 700;
+    }
+    .back {
+        padding: 11px 15px;
+        border:none;
+        background-color: rgb(202, 247, 78);
+		border: 1px solid rgba(var(--accent-light), 25%);
+        color:white;
+        cursor:pointer;
+        border-radius: 5px;
+		box-shadow: 2px 2px 2px 2px rgb(215, 238, 160);
+        font-size: 14px;
+		font-weight: 700;
+        text-decoration: none;
+    }
+    .back:hover {
+        background-color: transparent;
+		border: 1px solid rgba(var(--accent-light), 25%);
+		color:rgb(202, 247, 78);
+		box-shadow: 2px 2px 2px 2px aliceblue;
+    }
+    button:hover {
+		background-color: transparent;
+		border: 1px solid rgba(var(--accent-light), 25%);
+		color:rgb(78, 247, 78);
+		box-shadow: 2px 2px 2px 2px aliceblue;
+
+
+	}
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+</style>
